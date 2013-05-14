@@ -5,14 +5,12 @@ Import skn3.arraysorter
 'create our custom item sorter here
 'we are extending the cocktail sorter
 Class ItemSorter Extends ArraySorterCocktail<Item>
-	Private
 	Method Compare:Int(a:Item, b:Item)
 		' --- compare the two items ---
 		If a.order > b.order Return 1
 		If a.order < b.order Return - 1
 		Return 0
 	End
-	Public
 End
 
 'custom item class
@@ -42,7 +40,7 @@ Function Main:Int()
 	Local sorter:= New ItemSorter
 	
 	'sort the array of items in ascending order
-	sorter.Sort(items, true)
+	sorter.Sort(items, True)
 	
 	'output the contents of array
 	For Local index:= 0 Until items.Length
