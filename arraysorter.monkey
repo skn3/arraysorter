@@ -26,7 +26,10 @@ Class ArraySorterCocktail<T> Extends ArraySorter<T> Abstract
 		Local endIndex:Int = items.Length - 2
 		Local swapped:Bool
 		Local compareResult:Int
+		Local compareMultiplier:Int = -1
 		Local tempItem:T
+		
+		If ascending compareMultiplier = 1
 		
 		Repeat
 			'increases begin because the elements before begin are in correct order
@@ -34,11 +37,7 @@ Class ArraySorterCocktail<T> Extends ArraySorter<T> Abstract
 			beginIndex += 1
 			For index = beginIndex To endIndex
 				'get comparison result
-				If ascending
-					compareResult = Compare(items[index], items[index + 1])
-				Else
-					compareResult = Compare(items[index + 1], items[index])
-				EndIf
+				compareResult = Compare(items[index], items[index + 1]) * compareMultiplier
 				
 				'test it
 				If compareResult = 1
@@ -58,11 +57,7 @@ Class ArraySorterCocktail<T> Extends ArraySorter<T> Abstract
 			endIndex -= 1
 			For index = endIndex To beginIndex Step - 1
 				'get comparison result
-				If ascending
-					compareResult = Compare(items[index], items[index + 1])
-				Else
-					compareResult = Compare(items[index + 1], items[index])
-				EndIf
+				compareResult = Compare(items[index], items[index + 1]) * compareMultiplier
 				
 				'test it
 				If compareResult = 1

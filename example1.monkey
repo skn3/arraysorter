@@ -42,7 +42,7 @@ Function Main:Int()
 	Local sorter:= New ItemSorter
 	
 	'sort the array of items in ascending order
-	sorter.Sort(items, True)
+	sorter.Sort(items, true)
 	
 	'output the contents of array
 	For Local index:= 0 Until items.Length
