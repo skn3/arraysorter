@@ -1,5 +1,7 @@
 Strict
 
+'version 2
+' - added ascending option for cocktail sort
 'version 1
 ' - first commit
 
@@ -32,7 +34,11 @@ Class ArraySorterCocktail<T> Extends ArraySorter<T> Abstract
 			beginIndex += 1
 			For index = beginIndex To endIndex
 				'get comparison result
-				compareResult = Compare(items[index], items[index + 1])
+				If ascending
+					compareResult = Compare(items[index], items[index + 1])
+				Else
+					compareResult = Compare(items[index + 1], items[index])
+				EndIf
 				
 				'test it
 				If compareResult = 1
@@ -52,7 +58,11 @@ Class ArraySorterCocktail<T> Extends ArraySorter<T> Abstract
 			endIndex -= 1
 			For index = endIndex To beginIndex Step - 1
 				'get comparison result
-				compareResult = Compare(items[index], items[index + 1])
+				If ascending
+					compareResult = Compare(items[index], items[index + 1])
+				Else
+					compareResult = Compare(items[index + 1], items[index])
+				EndIf
 				
 				'test it
 				If compareResult = 1

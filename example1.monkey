@@ -41,8 +41,8 @@ Function Main:Int()
 	'this could be created globally and reused
 	Local sorter:= New ItemSorter
 	
-	'sort the array of items
-	sorter.Sort(items)
+	'sort the array of items in ascending order
+	sorter.Sort(items, True)
 	
 	'output the contents of array
 	For Local index:= 0 Until items.Length
