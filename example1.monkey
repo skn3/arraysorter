@@ -1,17 +1,29 @@
 Strict
+Import arraysorter
+Import comparator
 
-Import skn3.arraysorter
+'create our custom item comparator here.
+'we are telling the cocktail sorter to compare Items using this method.
+Class ItemComparator Extends Comparator<Item>
+	Field Descending:Bool
+	
+	Method New(descending:Bool)
+		Descending = descending
+	End Method
 
-'create our custom item sorter here
-'we are extending the cocktail sorter
-Class ItemSorter Extends ArraySorterCocktail<Item>
 	Method Compare:Int(a:Item, b:Item)
 		' --- compare the two items ---
-		If a.order > b.order Return 1
-		If a.order < b.order Return - 1
-		Return 0
-	End
-End
+		If Descending
+			If a.order > b.order Return - 1
+			If a.order < b.order Return 1
+			Return 0
+		Else
+			If a.order > b.order Return 1
+			If a.order < b.order Return - 1
+			Return 0
+		End If
+	End Method
+End Class
 
 'custom item class
 Class Item
@@ -21,8 +33,8 @@ Class Item
 	Method New(id:String, order:Int)
 		Self.id = id
 		Self.order = order
-	End
-End
+	End Method
+End Class
 
 'test program
 Function Main:Int()
@@ -35,12 +47,13 @@ Function Main:Int()
 	items[4] = New Item("item5", 40)
 	items[5] = New Item("item6(top)", -999)
 	
-	'create an instance of sorter
-	'this could be created globally and reused
-	Local sorter:= New ItemSorter
+	'create an instance of sorter; this could be created globally and reused.
+	'also create a new itemComparator with ascending sort enabled.
+	Local itemComparison:= New ItemComparator(False)  '<-- set this to True for descending sort
+	Local sorter:= New ArraySorterCocktail<Item>
 	
 	'sort the array of items in ascending order
-	sorter.Sort(items, True)
+	sorter.Sort(items, itemComparison)
 	
 	'output the contents of array
 	For Local index:= 0 Until items.Length
@@ -49,4 +62,4 @@ Function Main:Int()
 	
 	'must return something for strict mode
 	Return 0
-End
+End Function 
