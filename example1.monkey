@@ -5,10 +5,16 @@ Import comparator
 'create our custom item comparator here.
 'we are telling the cocktail sorter to compare Items using this method.
 Class ItemComparator Extends Comparator<Item>
-	Method Compare:Int(a:Item, b:Item)
+	Method Compare:Int(a:Item, b:Item, descending:Bool)
 		' --- compare the two items ---
-		If a.order > b.order Return 1
-		If a.order < b.order Return - 1
+		If descending
+			If a.order > b.order Return - 1
+			If a.order < b.order Return 1
+		Else
+			If a.order > b.order Return 1
+			If a.order < b.order Return - 1
+		EndIf
+		
 		Return 0
 	End Method
 End Class

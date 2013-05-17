@@ -1,6 +1,9 @@
 Strict
 Import comparator
 
+'version 5 (skn3+nobu)
+' - moved descending functionality into Comparator class
+' - made sort implementation pass sort param though to comparator
 'version 4 (skn3)
 ' - moved the ascending/descending flag to sort() method call so order is not hard-coded into comparator
 ' - added bool and string default comparators
@@ -46,11 +49,7 @@ Class ArraySorterCocktail<T> Extends ArraySorter<T>
 		Local endIndex:Int = items.Length - 2
 		Local swapped:Bool
 		Local compareResult:Int
-		Local compareResultMultiplier:Int = 1
 		Local tempItem:T
-		
-		'work out descending multiplier
-		If descending compareResultMultiplier = -1
 		
 		Repeat
 			'increases begin because the elements before begin are in correct order
@@ -58,7 +57,7 @@ Class ArraySorterCocktail<T> Extends ArraySorter<T>
 			beginIndex += 1
 			For index = beginIndex To endIndex
 				'get comparison result
-				compareResult = c.Compare(items[index], items[index + 1]) * compareResultMultiplier
+				compareResult = c.Compare(items[index], items[index + 1],descending)
 				
 				'test it
 				If compareResult = 1
@@ -78,7 +77,7 @@ Class ArraySorterCocktail<T> Extends ArraySorter<T>
 			endIndex -= 1
 			For index = endIndex To beginIndex Step - 1
 				'get comparison result
-				compareResult = c.Compare(items[index], items[index + 1]) * compareResultMultiplier
+				compareResult = c.Compare(items[index], items[index + 1],descending)
 				
 				'test it
 				If compareResult = 1
