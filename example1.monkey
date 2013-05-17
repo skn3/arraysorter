@@ -5,23 +5,11 @@ Import comparator
 'create our custom item comparator here.
 'we are telling the cocktail sorter to compare Items using this method.
 Class ItemComparator Extends Comparator<Item>
-	Field Descending:Bool
-	
-	Method New(descending:Bool)
-		Descending = descending
-	End Method
-
 	Method Compare:Int(a:Item, b:Item)
 		' --- compare the two items ---
-		If Descending
-			If a.order > b.order Return - 1
-			If a.order < b.order Return 1
-			Return 0
-		Else
-			If a.order > b.order Return 1
-			If a.order < b.order Return - 1
-			Return 0
-		End If
+		If a.order > b.order Return 1
+		If a.order < b.order Return - 1
+		Return 0
 	End Method
 End Class
 
@@ -49,17 +37,62 @@ Function Main:Int()
 	
 	'create an instance of sorter; this could be created globally and reused.
 	'also create a new itemComparator with ascending sort enabled.
-	Local itemComparison:= New ItemComparator(False)  '<-- set this to True for descending sort
+	Local itemComparison:= New ItemComparator()
 	Local sorter:= New ArraySorterCocktail<Item>
 	
 	'sort the array of items in ascending order
-	sorter.Sort(items, itemComparison)
+	sorter.Sort(items, itemComparison, False)
 	
 	'output the contents of array
+	Print "[Items Array]"
 	For Local index:= 0 Until items.Length
-		Print "index = " + index + " id = " + items[index].id
+		Print " index[" + index + "] = " + items[index].id
 	Next
+	Print ""
 	
+	'do search of bool array
+	Local boolItems:=[False, True, False, True, True, True, False, True]
+	SortArray(boolItems)
+	
+	'output the contents of array
+	Print "[Bool Array]"
+	For Local index:= 0 Until boolItems.Length
+		Print " index[" + index + "] = " + Int(boolItems[index])
+	Next
+	Print ""
+	
+	'do search of int array
+	Local intItems:=[999, 123123, 1, -2333, 44, -68]
+	SortArray(intItems)
+	
+	'output the contents of array
+	Print "[Int Array]"
+	For Local index:= 0 Until intItems.Length
+		Print " index[" + index + "] = " + intItems[index]
+	Next
+	Print ""
+	
+	'do search of float array
+	Local floatItems:=[1.1234, 1.234, 1.334, 999, -543.22, 0.01]
+	SortArray(floatItems)
+	
+	'output the contents of array
+	Print "[Float Array]"
+	For Local index:= 0 Until floatItems.Length
+		Print " index[" + index + "] = " + floatItems[index]
+	Next
+	Print ""
+	
+	'do search of string array
+	Local stringItems:=["hello", "world", "how", "are", "you"]
+	SortArray(stringItems)
+	
+	'output the contents of array
+	Print "[String Array]"
+	For Local index:= 0 Until stringItems.Length
+		Print " index[" + index + "] = " + stringItems[index]
+	Next
+		
 	'must return something for strict mode
 	Return 0
 End Function 
